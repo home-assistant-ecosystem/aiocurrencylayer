@@ -29,7 +29,15 @@ async def main():
                 "An API key for free plan is used, only USD as source allowed")
             return
 
-        print(currency.quotes)
+        print("Supported currencies:",
+              len(await currency.supported_currencies()))
+
+        # Get all quotes (identical to currency.quotes), use quote=CURRENCY
+        # to initialize the object to only get one currency
+        print(currency.quote)
+
+        # Get a single quote
+        print(QUOTE, currency.quotes[QUOTE])
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
