@@ -20,8 +20,9 @@ Usage
 
 The file ``example.py`` contains an example about how to use this module.
 
-Basically it's just a wrapper to get the JSON data from a given UUID which
-represents the device.
+Basically it's just a wrapper. Enter your CurrencyLayer API key and the
+currency you want a quote for. Free subscriptions only support USD as source
+currency.
 
 .. code:: bash
 
@@ -41,5 +42,5 @@ For development is recommended to use a ``venv``.
 License
 -------
 
-``python-currencylalyer`` is licensed under MIT, for more details check
+``python-currencylayer`` is licensed under MIT, for more details check
 LICENSE.
