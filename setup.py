@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script to set up the currencylayer API wrapper."""
+"""Script to set up the CurrencyLayer API wrapper."""
 import os
 import sys
 
@@ -19,7 +19,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='aiocurrencylayer',
-    version='0.1.0',
+    version='0.1.1',
     description='Python Wrapper for interacting with the CurrencyLayer API.',
     long_description=long_description,
     url='https://github.com/fabaff/python-currencylayer',
