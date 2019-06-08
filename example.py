@@ -1,4 +1,4 @@
-"""Sample code for the wrapper to interact with the CurrencyLayer API."""
+"""Sample code for the wrapper to interact with the currencylayer API."""
 import asyncio
 
 import aiohttp

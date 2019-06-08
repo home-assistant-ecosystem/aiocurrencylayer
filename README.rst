@@ -1,10 +1,10 @@
 python-currencylayer
 ====================
 
-Python API for interacting with `CurrencyLayer <https://currencylayer.com/>`_.
+Python API for interacting with `currencylayer <https://currencylayer.com/>`_.
 At the moment only the consumption of data is supported.
 
-This module is not official, developed, supported or endorsed by CurrencyLayer.
+This module is not official, developed, supported or endorsed by currencylayer.
 
 Installation
 ------------
@@ -20,7 +20,7 @@ Usage
 
 The file ``example.py`` contains an example about how to use this module.
 
-Basically it's just a wrapper. Enter your CurrencyLayer API key and the
+Basically it's just a wrapper. Enter your currencylayer API key and the
 currency you want a quote for. Free subscriptions only support USD as source
 currency.
 

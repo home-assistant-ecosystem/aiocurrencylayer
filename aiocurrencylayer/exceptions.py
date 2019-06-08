@@ -1,8 +1,8 @@
-"""Exceptions for wrapper to interact with the CurrencyLayer API."""
+"""Exceptions for wrapper to interact with the currencylayer API."""
 
 
 class CurrencyLayerError(Exception):
-    """General CurrencyLayer Error exception occurred."""
+    """General currencylayer Error exception occurred."""
 
     pass
 

@@ -1,4 +1,4 @@
-"""Wrapper for interacting with the CurrencyLayer API."""
+"""Wrapper for interacting with the currencylayer API."""
 import asyncio
 import logging
 
@@ -15,7 +15,7 @@ class CurrencyLayer(object):
     """A class for handling the data retrieval."""
 
     def __init__(self, loop, session, api_key, source='USD'):
-        """Initialize the connection to the CurrencyLayer API."""
+        """Initialize the connection to the currencylayer API."""
         self._loop = loop
         self._session = session
         self.data = {}
@@ -29,7 +29,7 @@ class CurrencyLayer(object):
         self._timestamp = self._quotes = None
 
     async def get_data(self):
-        """Retrieve the data."""
+        """Retrieve the data from currencylayer."""
         try:
             with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(
@@ -52,7 +52,7 @@ class CurrencyLayer(object):
                 self.valid = True
 
         except (asyncio.TimeoutError, aiohttp.ClientError):
-            _LOGGER.error("Can not load data from CurrencyLayer API")
+            _LOGGER.error("Can not load data from currencylayer API")
             raise exceptions.CurrencyLayerConnectionError()
 
     @property
