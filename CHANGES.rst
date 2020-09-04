@@ -1,6 +1,12 @@
 Changes
 =======
 
+20200904 - 0.1.3
+----------------
+
+- Update auth handling
+- Limit support because Home Assistant is pinning releases
+
 20190609 - 0.1.2
 ----------------
 
