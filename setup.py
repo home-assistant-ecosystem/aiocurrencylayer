@@ -19,7 +19,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='aiocurrencylayer',
-    version='0.1.2',
+    version='0.1.3',
     description='Python Wrapper for interacting with the CurrencyLayer API.',
     long_description=long_description,
     url='https://github.com/home-assistant-ecosystem/python-currencylayer',
