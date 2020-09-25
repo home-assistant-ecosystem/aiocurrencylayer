@@ -1,5 +1,5 @@
-python-currencylayer
-====================
+aiocurrencylayer
+================
 
 Python API for interacting with `currencylayer <https://currencylayer.com/>`_.
 At the moment only the consumption of data is supported.
