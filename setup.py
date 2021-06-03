@@ -13,10 +13,6 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-if sys.argv[-1] == 'publish':
-    os.system('python3 setup.py sdist upload')
-    sys.exit()
-
 setup(
     name='aiocurrencylayer',
     version='0.1.3',
