@@ -28,6 +28,7 @@ setup(
         'async_timeout<4',
     ],
     packages=['aiocurrencylayer'],
+    python_requires=">=3.8",
     zip_safe=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -37,9 +38,8 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Utilities',
     ],
 )
