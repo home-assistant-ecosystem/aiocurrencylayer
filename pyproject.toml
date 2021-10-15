@@ -5,6 +5,7 @@ description = "Python client for interacting with the CurrencyLayer API"
 authors = ["Fabian Affolter <fabian@affolter-engineering.ch>"]
 license = "MIT"
 homepage = "https://github.com/home-assistant-ecosystem/aiocurrencylayer"
+include = ["CHANGES.rst", "LICENSE", "README.rst"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
