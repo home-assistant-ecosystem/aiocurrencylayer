@@ -1,9 +1,7 @@
 """Wrapper for interacting with the currencylayer API."""
-import asyncio
 import logging
 
-import aiohttp
-import async_timeout
+import httpx
 
 from . import exceptions
 
@@ -14,12 +12,11 @@ _RESOURCE = "http://apilayer.net/api/live"
 class CurrencyLayer(object):
     """A class for handling the data retrieval."""
 
-    def __init__(self, loop, session, api_key, source="USD", quote=None):
+    def __init__(self, api_key, source="USD", quote=None):
         """Initialize the connection to the currencylayer API."""
-        self._loop = loop
         self._quote = quote
-        self._session = session
-        self._timestamp = self._quotes = None
+        self._timestamp = None
+        self._quotes = None
         self.data = {}
         self.source = source
         self.valid = self.free = None
@@ -32,40 +29,42 @@ class CurrencyLayer(object):
     async def get_data(self):
         """Retrieve the data from currencylayer."""
         try:
-            with async_timeout.timeout(5, loop=self._loop):
-                response = await self._session.get(_RESOURCE, params=self.parameters)
-
-            _LOGGER.debug("Response from CurrencyLayer API: %s", response.status)
-
-            self.data = await response.json()
-            _LOGGER.debug(self.data)
-
-            if self.data["success"] is False:
-                self.valid = False
-                raise exceptions.CurrencyLayerAuthenticationError(
-                    "API key is not valid"
-                )
-
-        except (asyncio.TimeoutError, aiohttp.ClientError):
-            _LOGGER.error("Can not load data from currencylayer API")
+            async with httpx.AsyncClient() as client:
+                response = await client.get(str(_RESOURCE), params=self.parameters)
+        except httpx.ConnectError:
             raise exceptions.CurrencyLayerConnectionError()
 
-        self._quotes = {
-            key.replace(self.source, ""): round(value, 4)
-            for key, value in self.data["quotes"].items()
-        }
+        if response.status_code == httpx.codes.OK:
+            _LOGGER.debug(response.json())
+            try:
+                self.data = response.json()
+            except TypeError:
+                _LOGGER.error("Can not load data from currencylayer API")
+                raise exceptions.CurrencyLayerConnectionError(
+                    "Unable to get the data from currencylayer API"
+                )
 
         if self.data["success"] is False:
             if self.data["error"]["code"] == 101:
                 self.valid = False
+                raise exceptions.CurrencyLayerAuthenticationError(
+                    "API key is not valid"
+                )
             if self.data["error"]["code"] == 105:
-                self.free = True
+                raise exceptions.CurrencyLayerError(
+                    "Your subscription only support USD (free plan)"
+                )
             if self.data["error"]["code"] == 103:
                 raise exceptions.CurrencyLayerConnectionError(
                     self.data["error"]["info"].split(".")[0]
                 )
         else:
             self.valid = True
+
+        self._quotes = {
+            key.replace(self.source, ""): round(value, 4)
+            for key, value in self.data["quotes"].items()
+        }
 
     @property
     def timestamp(self):
@@ -85,14 +84,12 @@ class CurrencyLayer(object):
         """Return the available quotes."""
         return self._quotes
 
-    async def validate_api_key(self):
+    @property
+    def validate_api_key(self):
         """Return the validity of the API key."""
         return self.valid
 
-    async def check_free_plan(self):
-        """Return True if free plan (only USD as source currency allowed)."""
-        return self.free
-
-    async def supported_currencies(self):
-        """Return supported currencies."""
+    @property
+    def supported_currencies(self):
+        """Return the supported currencies."""
         return list(self._quotes.keys())
