@@ -1,6 +1,13 @@
 Changes
 =======
 
+20211015 - 1.0.0
+----------------
+
+- Migrate to pyproject
+- Switch from aiohttp to httpx
+- Add tests
+
 20200904 - 0.1.3
 ----------------
 
