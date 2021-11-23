@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiocurrencylayer"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python client for interacting with the CurrencyLayer API"
 authors = ["Fabian Affolter <fabian@affolter-engineering.ch>"]
 license = "MIT"
