@@ -1,5 +1,6 @@
 """Wrapper for interacting with the currencylayer API."""
 import logging
+from typing import Any
 
 import httpx
 
@@ -12,21 +13,24 @@ _RESOURCE = "http://apilayer.net/api/live"
 class CurrencyLayer(object):
     """A class for handling the data retrieval."""
 
-    def __init__(self, api_key, source="USD", quote=None):
+    def __init__(
+        self, api_key: str, source: str = "USD", quote: str | None = None
+    ) -> None:
         """Initialize the connection to the currencylayer API."""
-        self._quote = quote
-        self._timestamp = None
-        self._quotes = None
-        self.data = {}
-        self.source = source
-        self.valid = self.free = None
-        self.parameters = {
+        self._quote: str | None = quote
+        self._timestamp: int | None = None
+        self._quotes: dict[str, float] | None = None
+        self.data: dict[str, Any] = {}
+        self.source: str = source
+        self.valid: bool | None = None
+        self.free: bool | None = None
+        self.parameters: dict[str, Any] = {
             "source": self.source,
             "access_key": api_key,
             "format": 1,
         }
 
-    async def get_data(self):
+    async def get_data(self) -> None:
         """Retrieve the data from currencylayer."""
         try:
             async with httpx.AsyncClient() as client:
@@ -67,29 +71,31 @@ class CurrencyLayer(object):
         }
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> int:
         """Return the timestamp of the quotes."""
         return self.data["timestamp"]
 
     @property
-    def quote(self):
+    def quote(self) -> float | dict[str, float] | None:
         """Return the requested quote."""
         if self._quote is not None:
+            assert self._quotes is not None
             return self._quotes[self._quote]
         else:
             return self._quotes
 
     @property
-    def quotes(self):
+    def quotes(self) -> dict[str, float] | None:
         """Return the available quotes."""
         return self._quotes
 
     @property
-    def validate_api_key(self):
+    def validate_api_key(self) -> bool | None:
         """Return the validity of the API key."""
         return self.valid
 
     @property
-    def supported_currencies(self):
+    def supported_currencies(self) -> list[str]:
         """Return the supported currencies."""
+        assert self._quotes is not None
         return list(self._quotes.keys())
