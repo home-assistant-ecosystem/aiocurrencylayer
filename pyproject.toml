@@ -8,7 +8,7 @@ homepage = "https://github.com/home-assistant-ecosystem/aiocurrencylayer"
 include = ["CHANGES.rst", "LICENSE", "README.rst"]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 httpx = ">=0.26,<1"
 
 [tool.poetry.dev-dependencies]
