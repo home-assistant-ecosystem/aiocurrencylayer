@@ -79,7 +79,10 @@ class CurrencyLayer(object):
     def quote(self) -> float | dict[str, float] | None:
         """Return the requested quote."""
         if self._quote is not None:
-            assert self._quotes is not None
+            if self._quotes is None:
+                raise exceptions.CurrencyLayerNoDataAvailable(
+                    "No data available. Call get_data() first."
+                )
             return self._quotes[self._quote]
         else:
             return self._quotes
@@ -97,5 +100,8 @@ class CurrencyLayer(object):
     @property
     def supported_currencies(self) -> list[str]:
         """Return the supported currencies."""
-        assert self._quotes is not None
+        if self._quotes is None:
+            raise exceptions.CurrencyLayerNoDataAvailable(
+                "No data available. Call get_data() first."
+            )
         return list(self._quotes.keys())
