@@ -14,7 +14,7 @@ httpx = ">=0.28,<1"
 [tool.poetry.dev-dependencies]
 pytest = "^8.1"
 black = "^26.3"
-pytest-httpx = ">0.15,<1"
+pytest-httpx = ">0.36,<1"
 pytest-asyncio = "^0.15.1"
 
 [build-system]
